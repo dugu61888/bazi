@@ -26,7 +26,7 @@ CHINESE_1990_2100 = [
     55644420,55657540,206648388,51450961,51397716,219300177,54789201,55640337,224723985,55644420,
 ] 
 
-CHANGE_1990_2100_24 =  [
+CHANGE_1990_2100_24 = [
     485536035763181,489951330300910,491395512218606,561397770413033,485536035763182,489951263192046,
     491395512218606,561397770347497,485536035763181,489951263192046,491395512218606,561397770413033,
     467943782609901,485536036811758,491119561356270,491029026238425,467943581279209,485536036811757,
@@ -82,20 +82,20 @@ CHINESE_12_2 = [u"鼠",u"牛",u"虎",u"兔",u"龍",u"蛇",u"馬",u"羊",u"猴",u
 def day(english_year,english_month,english_day):
     #旧历的计算
     chinese_years_days = helper_days_list()
-    english_days = datetime.date(english_year,english_month,english_day) - datetime.date(1901,1,1) 
+    english_days = datetime.date(english_year,english_month,english_day) - datetime.date(1901,1,1)
     english_days = english_days.days  #获取输入日期的天数
     if english_days <50:
         d49 = day_49(english_year,english_month,english_day)
         return d49
-    chinese_year_list = helper_year_data_find(english_days,chinese_years_days) #获得年位置 [33271, 91, 1992, 16]
-    
+    chinese_year_list = helper_year_data_find(english_days,chinese_years_days) #获得年位置 [(31439, 86), 1987, 140]
+    print(chinese_year_list)
     change_dict = { '00':29, '01':30, '10':29,'11':30,}
     a = bin(CHINESE_1990_2100[chinese_year_list[1]])
-    b = [ a[i:i+2] for i in range(0, len(a),2)][2:] #二进制列表
-    c = [ change_dict[x] if x in change_dict else x for x in b]#十进制列表
+    b = [a[i:i+2] for i in range(0, len(a),2)][2:] #二进制列表
+    c = [change_dict[x] if x in change_dict else x for x in b]#十进制列表
 
     d = [ sum(c[0:i]) for i in range(len(c))] #月份的天数
-    chinese_month_list = helper_month_data_find(chinese_year_list[3] ,d) #获得月位置 [0, 0, 1, 17]
+    chinese_month_list = helper_month_data_find(chinese_year_list[3] ,d) #获得月位置 [118, 4, 5, 23]
     chinese_month_list_2 = chinese_month_list[2]
     b_len= len(b)
     if b_len == 13:
@@ -150,18 +150,22 @@ def day(english_year,english_month,english_day):
     f5 = CHINESE_10_1[int(CHINESE_60[v5][0:2])] #日的天干
     print (u'输入:[' +f1+ u']; 输出:[' +f2+ u']; 天干地支:[' +f3+ u']; 生肖:[' +f4 +']')
     
-    return [f3,f4,f5]
+    return [f3,f4,f5,f2,english_year]
 
 
 
 def helper_days_list():
+    """
+    构建从1900年至今农历每年有多少天的列表
+    :return:
+    """
     chinese_years_data =49
     chinese_years_list = [49]
-    change_dict = { '00':29, '01':30, '10':29,'11':30,}
+    change_dict = { '00':29, '01':30, '10':29,'11':30}
 
     for i in CHINESE_1990_2100:
         a = bin(i)
-        b = [ a[i:i+2] for i in range(0, len(a),2)][2:] #转为二进制的列表
+        b = [a[i:i+2] for i in range(0, len(a),2)][2:] #转为二进制的列表 后面的切片，list切片
         c = sum([ int(change_dict[x]) if x in change_dict else int(x) for x in b]) #转为十进制的列表
         chinese_years_data = chinese_years_data + c #得出年初的天数
         chinese_years_list.append(chinese_years_data) #添加进列表
@@ -197,8 +201,8 @@ def helper_month_data_find(value,li):
     return [chinese_month_data_find[0],chinese_month_data_find[1],1+ chinese_month_data_find[1],value-chinese_month_data_find[0]+1]
 
 def helper_year_data_find(value,li):
-    chinese_year_data_find = [ (i,li.index(i))  for i in li if i <= value ][-1]
-    return [chinese_year_data_find [0],chinese_year_data_find [1],1901+chinese_year_data_find [1],value-chinese_year_data_find[0]]
+    chinese_year_data_find = [(i, li.index(i)) for i in li if i <= value][-1]
+    return [chinese_year_data_find[0], chinese_year_data_find[1], 1901+chinese_year_data_find[1], value-chinese_year_data_find[0]]
 
 
 def change(chinese_year,chinese_month,chinese_day): 
@@ -282,10 +286,10 @@ def helper_verify_year(english_year):
 def helper_verify_month(english_month):
     errors = 0
     english_year_error = 0
-    if english_year <1:
+    if english_month <1:
         errors = errors + 1
         english_year_error =3
-    elif english_year >12:
+    elif english_month >12:
         errors = errors + 1
         english_year_error = 4
     return [english_year_error,errors]
@@ -349,10 +353,10 @@ def helper_verify_day_60(chinese_year,chinese_month,chinese_day):
         
 
 def main():
-    a = day(1903,6,28)  # 闰年
-    c = day(1991, 12, 15)
-    b = change(1903,3,4)
-    d = helper_verify_day_60(1984,10,11)
+    a = day(1987,6,18)  # 闰年
+    # c = day(1991, 12, 15)
+    # b = change(1903,3,4)
+    # d = helper_verify_day_60(1984,10,11)
 
 
 if __name__ == '__main__':

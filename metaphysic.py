@@ -2,6 +2,7 @@ import datetime
 import math
 import ganzhi
 import wuxingData
+import dizhicanggan
 
 tiangans = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"]
 dizhis = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"]
@@ -107,11 +108,11 @@ def getWuXing(bazi):
             countForHuo = countForHuo + 1
         else:
             countForTu = countForTu + 1
-    scoreForJin = round(countForJin / 8, 2)
-    scoreForMu = round(countForMu / 8, 2)
-    scoreForShui = round(countForShui / 8, 2)
-    scoreForHuo = round(countForHuo / 8, 2)
-    scoreForTu = round(countForTu / 8, 2)
+    scoreForJin = countForJin
+    scoreForMu = countForMu
+    scoreForShui = countForShui
+    scoreForHuo =countForHuo
+    scoreForTu = countForTu
     return (scoreForJin, scoreForMu, scoreForShui, scoreForHuo, scoreForTu)
 
 
@@ -120,12 +121,19 @@ def main():
     # birthMonth = input("please input your birth month: ")
     # birthDay = input("please input your birth day: ")
     # birthTime = input("please input your birth time: ")
-    shenchenbazi = getShenChenBaZi(1994, 5, 8, 9)
+    # shenchenbazi = getShenChenBaZi(1990, 12, 21, 17)
+    shenchenbazi = getShenChenBaZi(1989, 10, 13, 9)
     # shenchenbazi = getShenChenBaZi(
     #     int(birthYear), int(birthMonth), int(birthDay), int(birthTime))
     print("你的生辰八字是: %s" % (shenchenbazi))
     wuxing = getWuXing(shenchenbazi)
-    print("您的生辰八字五行指数为金：%.2f,木：%.2f,水：%.2f,火：%.2f,土:%.2f" % (wuxing))
+    print("您的生辰八字五行指数为  金：%d,木：%d,水：%d,火：%d,土:%d" % (wuxing))
+    wushi = dizhicanggan.wuxinshishen(shenchenbazi)
+
+    print("您的天干五行是 " + str(wushi[0]))
+
+    print("您的地支五行是 " + str(wushi[1]))
+
     minScore = 0
     minIndexes = []
     for index, value in enumerate(wuxing):
