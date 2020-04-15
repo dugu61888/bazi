@@ -3,64 +3,7 @@ import math
 import ganzhi
 import wuxingData
 import dizhicanggan
-
-tiangans = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"]
-dizhis = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"]
-wuxingNames = ["金", "木", "水", "火", "土"]
-
-# wuxingDicForTiangan = {
-#     "甲":"阳木",
-#     "乙":"阴木",
-#     "丙":"阳火",
-#     "丁":"阴火",
-#     "戊":"阳土",
-#     "己":"阴土",
-#     "庚":"阳金",
-#     "辛":"阴金",
-#     "壬":"阳水",
-#     "癸":"阴水"
-# }
-# wuxingDicForDizhi = {
-#     "子":"阳水",
-#     "丑":"阴土",
-#     "寅":"阳木",
-#     "卯":"阴木",
-#     "辰":"阳土",
-#     "巳":"阴火",
-#     "午":"阳火",
-#     "未":"阴土",
-#     "申":"阳金",
-#     "酉":"阴金",
-#     "戌":"阳土",
-#     "亥":"阴水"
-# }
-
-wuxingDicForTiangan = {
-    "甲": "木",
-    "乙": "木",
-    "丙": "火",
-    "丁": "火",
-    "戊": "土",
-    "己": "土",
-    "庚": "金",
-    "辛": "金",
-    "壬": "水",
-    "癸": "水"
-}
-wuxingDicForDizhi = {
-    "子": "水",
-    "丑": "土",
-    "寅": "木",
-    "卯": "木",
-    "辰": "土",
-    "巳": "火",
-    "午": "火",
-    "未": "土",
-    "申": "金",
-    "酉": "金",
-    "戌": "土",
-    "亥": "水"
-}
+from Common.BaziCommon import *
 
 
 def calculateTime(tianganOfDay, time):  # tiangan%10 : 10
@@ -80,6 +23,7 @@ def calculateTime(tianganOfDay, time):  # tiangan%10 : 10
 
 def getShenChenBaZi(year, month, day, time):
     data = ganzhi.day(year, month, day)
+    print("data is neeed" + str(data))
     tianganOfDay = data[2]
     tianganOfDaySymbol = tiangans.index(tianganOfDay) + 1
     ganzhiOfTime = calculateTime(tianganOfDaySymbol, time)
@@ -111,9 +55,9 @@ def getWuXing(bazi):
     scoreForJin = countForJin
     scoreForMu = countForMu
     scoreForShui = countForShui
-    scoreForHuo =countForHuo
+    scoreForHuo = countForHuo
     scoreForTu = countForTu
-    return (scoreForJin, scoreForMu, scoreForShui, scoreForHuo, scoreForTu)
+    return scoreForJin, scoreForMu, scoreForShui, scoreForHuo, scoreForTu
 
 
 def main():
@@ -149,6 +93,7 @@ def main():
         if lackingWuxingCharacters:
             wuxingCharacters.extend(wuxingData.wuxingDic.get(lackingWuxing))
     return wuxingCharacters
+
 
 if __name__ == '__main__':
     main()

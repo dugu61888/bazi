@@ -6,7 +6,7 @@ import json
 
 
 def crawl_data():
-    file = open("jieqi.txt", 'w+', encoding='utf-8')
+    file = open("../Common/jieqi.txt", 'w+', encoding='utf-8')
 
     for i in range(1900, 2100, 1):
         dic = dict()

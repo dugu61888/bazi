@@ -1,34 +1,13 @@
 from astral.sun import sun
-
 import ganzhi
-import sxtwl
 import json
 import metaphysic
 import datetime
 import re
 import astral
-import pytz
+from Common.BaziCommon import *
 
-nayin = ["海中金", "炉中火", "大林木", "路旁土", "剑锋金", "山头火", "涧下水", "城头土", "白蜡金", "杨柳木", "泉中水", "屋上土", "霹雳火", "松柏木", "长流水",
-         "沙中金", "山下火", "平地木", "壁上土", "金箔金", "佛灯火", "天河水", "大驿土", "钗钏金", "桑柘木", "大溪水", "沙中土", "天上火", "石榴木", "大海水"]
-tiangans = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"]
-dizhis = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"]
 
-Gan = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"]
-Zhi = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"]
-ShX = ["鼠", "牛", "虎", "兔", "龙", "蛇", "马", "羊", "猴", "鸡", "狗", "猪"]
-numCn = ["零", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十"]
-jqmc = ["冬至", "小寒", "大寒", "立春", "雨水", "惊蛰", "春分", "清明", "谷雨", "立夏", "小满", "芒种", "夏至", "小暑", "大暑", "立秋", "处暑", "白露",
-        "秋分", "寒露", "霜降", "立冬", "小雪", "大雪"]
-ymc = ["十一", "十二", "正", "二", "三", "四", "五", "六", "七", "八", "九", "十"]
-rmc = ["初一", "初二", "初三", "初四", "初五", "初六", "初七", "初八", "初九", "初十", "十一", "十二", "十三", "十四", "十五", "十六", "十七", "十八", "十九",
-       "二十", "廿一", "廿二", "廿三", "廿四", "廿五", "廿六", "廿七", "廿八", "廿九", "三十", "卅一"]
-
-# 节气名称组 每个节气每个月2个，立春从2月份开始全。第一个为节，第二中气
-name_Arr = ["立春", "雨水", "惊蛰", "春分", "清明", "谷雨",
-            "立夏", "小满", "芒种", "夏至", "小暑", "大暑",
-            "立秋", "处暑", "白露", "秋分", "寒露", "霜降",
-            "立冬", "小雪", "大雪", "冬至", "小寒", "大寒"]
 
 
 def find_nayin(name: str):
@@ -47,7 +26,7 @@ def find_nayin(name: str):
 
 
 def build_jieqi():
-    file = open("jieqi.txt", 'r', encoding='utf-8')
+    file = open("Common/jieqi.txt", 'r', encoding='utf-8')
     dic = dict()
     for line in file.readlines():
         dic.update(json.loads(line))
@@ -174,10 +153,3 @@ def modify_qiyun_format(shichen,tian,yue,sui):
 
 
 
-if __name__ == '__main__':
-    # print(find_nayin("戊午"))
-    build_Dayun(1989, 8, 16, 21, 56, 0)
-    location_XiChong = astral.LocationInfo('Shijiazhuang', 'China', 'Asia/Shanghai',34.16,108.91)
-    print(location_XiChong.timezone)
-    s = sun(location_XiChong.observer, date=datetime.date(1987, 6, 18))
-    print(s.get("noon"))

@@ -7,7 +7,7 @@ dizhi = dict(子='癸', 丑='己癸辛', 寅='甲丙戊', 卯='乙',
 
 wuxingDicForTiangan = dict(甲="阳木", 乙="阴木", 丙="阳火", 丁="阴火", 戊="阳土", 己="阴土", 庚="阳金", 辛="阴金", 壬="阳水", 癸="阴水")
 
-wuxing = ("木", "火", "土", "金", "水")
+wuxing = ("木", "火", "土", "金", "水")  
 
 
 def findCanggan(per: str):
@@ -42,7 +42,7 @@ def wuxinshishen(per: str):
             for di in list(templist[1]):
                 canlist.append(shishen(rizhu, di))
     tianlist.remove(tianlist[2])
-    return tianlist, canlist
+    return tianlist, canlist,canggan
 
 
 def shishen(rizhu: str, zhu: str):
