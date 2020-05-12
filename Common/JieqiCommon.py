@@ -4,7 +4,7 @@ import re
 
 
 def build_jieqi():
-    file = open("Common/jieqi.txt", 'r', encoding='utf-8')
+    file = open("/Users/zhaomin/Documents/ownproject/baziback/Common/jieqi.txt", 'r', encoding='utf-8')
     dic = dict()
     for line in file.readlines():
         dic.update(json.loads(line))

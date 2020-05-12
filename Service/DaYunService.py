@@ -124,4 +124,4 @@ def get_sun_time():
 
 
 if __name__ == '__main__':
-    build_Dayun(1989, 8, 16, 21, 56, 0)
+    build_Dayun(1999, 11, 27, 20, 20, 1)

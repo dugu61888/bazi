@@ -12,6 +12,21 @@ def getRiZhu(bazi):
         return None
 
 
+def getYin(str: str):
+    index = wuxing.index(str)
+    return index - 1 if index is not None else None
+
+
+def getTianlist(bazi):
+    bazilist = str(bazi).split("-")
+    outcome = []
+    if len(bazilist) <= 0:
+        return None
+    for temp in bazilist:
+        outcome.append(list(temp)[0])
+    return outcome
+
+
 def findCanggan(per: str):
     """
     将地支中的藏干找到
@@ -54,6 +69,7 @@ def getWuXing(bazi):
     scoreForHuo = countForHuo
     scoreForTu = countForTu
     return scoreForJin, scoreForMu, scoreForShui, scoreForHuo, scoreForTu
+
 
 def findtiangan(temp: str):
     return wuxingDicForTiangan[temp]
@@ -136,3 +152,8 @@ def jundeShishen(value: int, isTong: bool):
         else:
             outcome = "正财"
     return outcome
+
+
+if __name__ == '__main__':
+    t=findCanggan('己卯-乙亥-癸未-壬戌')
+    print(t)

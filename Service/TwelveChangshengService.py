@@ -95,5 +95,5 @@ if __name__ == '__main__':
     for key in tiangans:
         k = build_ChangSheng_dic(key)
         print(k)
-    outcome = find_zhangshang_list('壬申-癸丑-丙申-癸巳')
+    outcome = find_zhangshang_list('己卯-乙亥-癸未-壬戌')
     print(outcome)
